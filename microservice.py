@@ -4,7 +4,7 @@ import requests
 app = Flask(__name__)
 BASE_URL = 'https://tt-azureopenai-poc.openai.azure.com'
 
-@app.route('/chat/<deployment_id>', methods=['POST'])
+@app.route('/chat/single_response/<deployment_id>', methods=['POST'])
 def chat(deployment_id):
     received_body = request.json  # Assuming the body is in JSON format
 
@@ -21,11 +21,9 @@ def chat(deployment_id):
     if api_params:
         api_endpoint += '?' + '&'.join([f'{key}={value}' for key, value in api_params.items()])
     
-    # Pass headers from the incoming request
-    headers = dict(request.headers)
     
     try:
-        response = requests.post(api_endpoint, json=received_body, headers=headers)
+        response = requests.post(api_endpoint, json=received_body)
         if response.status_code == 200:
             return jsonify(response.json()), 200
         else:
