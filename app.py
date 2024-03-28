@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 import requests
 
 app = Flask(__name__)
-BASE_URL = 'https://tt-azureopenai-poc.openai.azure.com'
+BASE_URL = 'https://oai-nonprd-openai-poc-01.openai.azure.com'
 
 @app.route('/ai/chatbot/onepromt/v1/<deployment_id>', methods=['POST', "OPTIONS"])
 def chat(deployment_id):
